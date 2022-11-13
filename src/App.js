@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import AddInFridge from './components/AddInFridge';
+import ChosenProduct from './components/ChosenProduct';
+import FridgeList from './components/FridgeList';
+import HeaderComponent from './components/HeaderComponent';
+import Navigation from './components/Navigation';
+import ProductsList from './components/ProductsList';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <HeaderComponent/>
+        <Routes>
+          <Route index element={<Navigation/>}/>
+          <Route path='/' element={<Navigation/>}/>
+          <Route path='/navigation' element={<Navigation/>}/>
+          <Route path='/allProducts' element={<ProductsList/>}/>
+          <Route path='/allFromFridge' element={<FridgeList/>}/>
+          {/* <Route path='/allFromFridge/:id' element={<FridgeList/>}/> */}
+          <Route path='/addInFridge' element={<AddInFridge/>}/>
+          <Route path='/saveProduct/:id' element={<ChosenProduct/>}/>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
