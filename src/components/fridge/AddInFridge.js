@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import FridgeService from '../services/FridgeService';
+import FridgeService from '../../services/FridgeService';
 import NotInFridgeProducts from './NotInFridgeProducts';
 
 function AddInFridge(){

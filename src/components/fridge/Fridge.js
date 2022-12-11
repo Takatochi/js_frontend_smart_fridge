@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import FridgeService from '../services/FridgeService';
+import FridgeService from '../../services/FridgeService';
 
 const Fridge = ({fridge, deleteProduct}) => {
 
@@ -20,7 +20,6 @@ const Fridge = ({fridge, deleteProduct}) => {
         console.log(">>>>> update  VALUE: "+value);
         console.log(">>>>> update  name: "+e.target.name);
         console.log(">>>>> productid: "+product.product_id);
-        
     
         setProduct({...product, [e.target.name]: value}); 
 
@@ -57,6 +56,7 @@ const Fridge = ({fridge, deleteProduct}) => {
     const deleteP = (e)=>{
          //e.preventDefault();
          console.log("product >>"+product.product_id);
+         
          deleteProduct(e, product);
     //     FridgeService.deleteProductFromFridge(product).
     //     then((response)=>{

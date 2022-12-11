@@ -1,27 +1,25 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import FridgeService from '../services/FridgeService';
-import Fridge from './Fridge';
-// import { useParams } from 'react-router-dom';
+import FridgeService from '../../services/FridgeService';
+import Products from './Products';
+import { useNavigate } from 'react-router-dom';
 
-const FridgeList =()=> {
 
-    // const params =useParams();
+const ProductsList = () => {
 
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(true);
-    const [fridge, setFridge] = useState([]);
+    const [products, setProducts] = useState([]);
+
 
     useEffect(()=>{
         const fetchData = async()=>{
             setLoading(true);
             try {
-                console.log(">>> FridgeService.getAllFromFridge()");
-                const response = await FridgeService.getAllFromFridge();
-                setFridge(response.data);
+                const response = await FridgeService.getAllProducts();
+                setProducts(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -30,20 +28,20 @@ const FridgeList =()=> {
         fetchData(false);
     }, []);
 
-   
+    
     const deleteProduct =(e, product)=>{
         e.preventDefault();
-        console.log(">>>>> deleteProduct Product: "+product.product_id);
-        console.log(">>>>> deleteProduct Fridge: "+product.fridge_id);     
+        console.log(">>>>> deleteProduct Product: "+product.id);
+        console.log(">>>>> deleteProduct Fridge: "+product.id);     
 
-        FridgeService.deleteProductFromFridge(product).then((res)=>{
+        FridgeService.deleteProduct(product).then((res)=>{
             console.log(">>>>> deleteProduct is done");  
-            if(fridge){
-                console.log(">>> FridgeService.deleteProductFromFridge()"+ product.product_id);
-                setFridge((prevElement)=>{
+            if(products){
+                console.log(">>> FridgeService.deleteProductFromFridge()"+ product.id);
+                setProducts((prevElement)=>{
                     //return window.location.reload();
-                    console.log(">>> prevElement "+ product.product_id);
-                    return prevElement.filter((fridge)=> fridge.product_id !== product.product_id);
+                    console.log(">>> prevElement "+ product.id);
+                    return prevElement.filter((products)=> products.id !== product.id);
                 });
             }
         }).catch((error)=>{
@@ -54,8 +52,7 @@ const FridgeList =()=> {
   return (
     
     <div className='flex'>
-        
-       Fridge table
+        All products
         <table className='min-w-full position: relative'>
             
             <thead className='bg-gray-50'>
@@ -64,11 +61,14 @@ const FridgeList =()=> {
                             Name of products
                         </th>
                         <th className='text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6'>
-                            Quantity
+                            Measure
+                        </th>
+                        <th className='text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6'>
+                            Cost
                         </th>
                         <th>
-                        <button onClick={()=>navigate("/addInFridge")} className='rounded text-white font-semibold bg-yellow-400 hover:bg-yellow-700 py-2 px-6'>
-                            Add
+                        <button onClick={()=>navigate("/addNewProduct")} className='rounded text-white font-semibold bg-yellow-400 hover:bg-yellow-700 py-2 px-6'>
+                            Add new product
                         </button>
                         </th>
                         <th>
@@ -78,8 +78,8 @@ const FridgeList =()=> {
             </thead>
             {!loading &&(
                  <tbody>
-                    {fridge.map((fridge)=>(
-                        <Fridge fridge={fridge} deleteProduct = {deleteProduct} key={fridge.product_id}/>
+                    {products.map((product)=>(
+                        <Products product={product} deleteProduct = {deleteProduct} key={product.id}/>
                     ))}
                  </tbody>
             )}
@@ -88,4 +88,4 @@ const FridgeList =()=> {
   )
 }
 
-export default FridgeList
+export default ProductsList

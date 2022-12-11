@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import FridgeService from '../services/FridgeService';
+import FridgeService from '../../services/FridgeService';
 import { useNavigate } from 'react-router-dom';
 
 
 const NotInFridgeProducts = ({fridge}) => {
 
-
-    
 
     const [product, setProduct]= useState({
 
