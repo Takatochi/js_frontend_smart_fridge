@@ -3,8 +3,22 @@ import { useNavigate } from 'react-router-dom';
 
 const Products = ({product, deleteProduct}) => {
     const navigate = useNavigate();
+   
+    const [goods, setPost] = useState([]);
 
-
+//     useEffect(() => {
+//     axios.get('url')
+//         .then ((response)=> {
+//          setPost(response.data)
+//         })
+//         .catch(function (error) {
+//             console.log(error);
+//         });
+//     })
+//    goods.map((good, index) =>{
+//         console.log(good)
+//     })
+    
     const editProduct = (e, id)=>{
         e.preventDefault();
         navigate(`/editProduct/${id}`);
